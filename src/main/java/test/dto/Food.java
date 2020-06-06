@@ -3,19 +3,19 @@ package test.dto;
 import java.time.LocalDateTime;
 
 public class Food {
-    private String foodName;
+    private FoodType foodType;
     private LocalDateTime expirationDate;
 
-    public String getFoodName() {
-        return foodName;
+    public FoodType getFoodType() {
+        return foodType;
     }
 
     public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
+    public void setFoodType(FoodType foodType) {
+        this.foodType = foodType;
     }
 
     public void setExpirationDate(LocalDateTime expirationDate) {

@@ -11,8 +11,11 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import test.dto.Food;
+import test.dto.FoodType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Aspect
@@ -23,36 +26,26 @@ public class AnimalAspect {
     public void eatPoint() {
     }
 
+    @Pointcut("within(test.Cat)")
+    public void catPoint() {
+    }
+
+    @Pointcut("within(test.Dog)")
+    public void dogPoint() {
+    }
+
+    @Pointcut("within(test.Fox)")
+    public void foxPoint() {
+    }
+
     @Pointcut("within(test.Fish)")
     public void fishPoint() {
     }
 
-    @Before(value = "eatPoint()")
-    public void beforeEat() {
-        System.out.println("start eat");
-    }
-
-    @After(value = "eatPoint()")
-    public void afterEat() {
-        System.out.println("end eat");
-    }
-
-    @AfterThrowing(value = "eatPoint()", throwing = "ex")
-    public void eatFailed(Throwable ex) {
-        System.out.println("eat failed: " + ex.getMessage());
-    }
-
-    @AfterReturning(value = "eatPoint()")
-    public void eatSuccess(JoinPoint joinPoint) {
-        System.out.println("eat success");
-    }
-
-    @Around(value = "eatPoint() && args(food) && !fishPoint()")
-    public Object eatAround(ProceedingJoinPoint proceedingJoinPoint, Food food) throws Throwable {
+    public Object eatAroundGeneral(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String target = proceedingJoinPoint.getTarget().getClass().toString();
-        if (LocalDateTime.now().isAfter(food.getExpirationDate())){
-            return false;
-        }
+
+
         System.out.println(target + " start eat");
         try {
             Object result = proceedingJoinPoint.proceed();
@@ -67,10 +60,50 @@ public class AnimalAspect {
 
     @Around(value = "eatPoint() && args(food) && fishPoint()")
     public Object validateEatForFish(ProceedingJoinPoint proceedingJoinPoint, Food food) throws Throwable {
-        if (Objects.equals(food.getFoodName(), "fish")) {
+        if (LocalDateTime.now().isAfter(food.getExpirationDate())) {
             return false;
-        } else {
-            return eatAround(proceedingJoinPoint, food);
         }
+        if (Objects.equals(food.getFoodType(), FoodType.MILK)
+                || Objects.equals(food.getFoodType(), FoodType.FISH)
+                || Objects.equals(food.getFoodType(), FoodType.MEAT)) {
+            return false;
+        }
+        return eatAroundGeneral(proceedingJoinPoint);
+    }
+
+    @Around(value = "eatPoint() && args(food) && catPoint()")
+    public Object validateEatForCat(ProceedingJoinPoint proceedingJoinPoint, Food food) throws Throwable {
+        if (LocalDateTime.now().isAfter(food.getExpirationDate())) {
+            return false;
+        }
+        if ((Objects.equals(food.getFoodType(), FoodType.WORMS))) {
+            return false;
+        }
+        return eatAroundGeneral(proceedingJoinPoint);
+    }
+
+    @Around(value = "eatPoint() && args(food) && foxPoint()")
+    public Object validateEatForFox(ProceedingJoinPoint proceedingJoinPoint, Food food) throws Throwable {
+        if (LocalDateTime.now().isAfter(food.getExpirationDate())) {
+            return false;
+        }
+        if (Objects.equals(food.getFoodType(), FoodType.WORMS)
+                || Objects.equals(food.getFoodType(), FoodType.MILK)) {
+            return false;
+        }
+        return eatAroundGeneral(proceedingJoinPoint);
+    }
+
+    @Around(value = "eatPoint() && args(food) && dogPoint()")
+    public Object validateEatForDog(ProceedingJoinPoint proceedingJoinPoint, Food food) throws Throwable {
+        if (LocalDateTime.now().isAfter(food.getExpirationDate())) {
+            return false;
+        }
+        if (Objects.equals(food.getFoodType(), FoodType.WORMS)
+                || Objects.equals(food.getFoodType(), FoodType.MILK)
+                || Objects.equals(food.getFoodType(), FoodType.FISH)) {
+            return false;
+        }
+        return eatAroundGeneral(proceedingJoinPoint);
     }
 }

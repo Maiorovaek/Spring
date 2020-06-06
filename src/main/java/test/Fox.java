@@ -5,14 +5,16 @@ import test.dto.Food;
 import test.dto.FoodType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class Fish implements Animal {
+public class Fox implements Animal {
     private boolean angry = true;
 
     @Override
     public void voice() {
+        System.out.println("frr");
     }
 
     @Override
@@ -30,8 +32,6 @@ public class Fish implements Animal {
 
     @Override
     public List<FoodType> getPossibleFeedTypes() {
-        List<FoodType> foodTypes = new ArrayList<>();
-        foodTypes.add(FoodType.WORMS);
-        return foodTypes;
+        return new ArrayList<>(Arrays.asList(FoodType.FISH, FoodType.MEAT));
     }
 }

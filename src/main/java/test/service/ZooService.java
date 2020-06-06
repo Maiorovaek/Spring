@@ -1,7 +1,10 @@
 package test.service;
 
+import test.Animal;
 import test.dto.Food;
 
+import java.util.List;
+
 public interface ZooService {
-    void feed(Food food);
+    List<Animal> feed(Food food);
 }

@@ -10,6 +10,8 @@ import java.util.List;
 public class Zoo {
     private final Animal dog;
     private final Animal cat;
+    private final Animal fox;
+    private final Animal fish;
     private final String name;
     private final List<Animal> animals;
 
@@ -17,11 +19,15 @@ public class Zoo {
     public Zoo(
             Animal dog,
             Animal cat,
+            Animal fox,
+            Animal fish,
             @Value("${zoo.name}") String name,
             List<Animal> animals
     ) {
         this.dog = dog;
         this.cat = cat;
+        this.fox = fox;
+        this.fish = fish;
         this.name = name;
         this.animals = animals;
     }
@@ -33,6 +39,12 @@ public class Zoo {
     public Animal getCat() {
         return cat;
     }
+
+    public Animal getFox() {
+        return fox;
+    }
+
+    public Animal getFish(){ return fish;}
 
     public String getName() {
         return name;

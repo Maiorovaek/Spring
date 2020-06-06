@@ -3,6 +3,7 @@ package test.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import test.Animal;
+import test.event.ZooEvent;
 import test.Zoo;
 import test.dto.Food;
 
@@ -19,12 +20,13 @@ public class ZooServiceImpl implements ZooService {
     }
 
     @Override
-    public void feed(Food food) {
+    public List<Animal> feed(Food food) {
         List<Animal> angryAnimals = zoo.getAnimals()
                 .stream()
                 .peek(animal -> animal.eat(food))
                 .filter(Animal::isAngry)
                 .collect(Collectors.toList());
-        System.out.println(angryAnimals);
+        System.out.println("Hungry animals: " + angryAnimals);
+        return angryAnimals;
     }
 }
