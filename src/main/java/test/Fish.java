@@ -17,10 +17,12 @@ public class Fish implements Animal {
 
     @Override
     public boolean eat(Food food) {
-        if(getPossibleFeedTypes().contains(food.getFoodType())){
-            angry = false;
-        }
+        angry = false;
         return isAngry();
+    }
+
+    public void setAngry(boolean angry) {
+        this.angry = angry;
     }
 
     @Override

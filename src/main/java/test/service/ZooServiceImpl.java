@@ -3,7 +3,6 @@ package test.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import test.Animal;
-import test.event.ZooEvent;
 import test.Zoo;
 import test.dto.Food;
 

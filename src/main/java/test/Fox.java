@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import test.dto.Food;
 import test.dto.FoodType;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,10 +18,12 @@ public class Fox implements Animal {
 
     @Override
     public boolean eat(Food food) {
-        if(getPossibleFeedTypes().contains(food.getFoodType())){
-            angry = false;
-        }
+        angry = false;
         return isAngry();
+    }
+
+    public void setAngry(boolean angry) {
+        this.angry = angry;
     }
 
     @Override
@@ -32,6 +33,6 @@ public class Fox implements Animal {
 
     @Override
     public List<FoodType> getPossibleFeedTypes() {
-        return new ArrayList<>(Arrays.asList(FoodType.FISH, FoodType.MEAT));
+        return Arrays.asList(FoodType.FISH, FoodType.MEAT);
     }
 }

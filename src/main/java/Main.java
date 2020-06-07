@@ -1,7 +1,6 @@
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import test.Animal;
-import test.Zoo;
 import test.configuration.AnnotationConfiguration;
 import test.dto.Food;
 import test.dto.FoodType;
@@ -9,8 +8,6 @@ import test.event.ZooEvent;
 import test.service.ZooService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {

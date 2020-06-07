@@ -44,7 +44,9 @@ public class Zoo {
         return fox;
     }
 
-    public Animal getFish(){ return fish;}
+    public Animal getFish() {
+        return fish;
+    }
 
     public String getName() {
         return name;

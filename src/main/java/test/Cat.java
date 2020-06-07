@@ -1,6 +1,5 @@
 package test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +17,10 @@ public class Cat implements Animal {
 
     @Override
     public boolean eat(Food food) {
-        if(getPossibleFeedTypes().contains(food.getFoodType())){
-            angry = false;
+        if (isAngry()) {
+            setAngry(false);
         }
-        return isAngry();
+        return true;
     }
 
     @Override
@@ -29,8 +28,12 @@ public class Cat implements Animal {
         return angry;
     }
 
+    public void setAngry(boolean angry) {
+        this.angry = angry;
+    }
+
     @Override
     public List<FoodType> getPossibleFeedTypes() {
-        return new ArrayList<>(Arrays.asList(FoodType.MEAT, FoodType.MILK, FoodType.FISH));
+        return Arrays.asList(FoodType.MEAT, FoodType.MILK, FoodType.FISH);
     }
 }
